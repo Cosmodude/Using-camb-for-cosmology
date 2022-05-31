@@ -1,0 +1,45 @@
+from re import X
+import sys, platform, os
+import matplotlib
+from matplotlib import pyplot as plt
+import numpy as np
+import camb
+from camb import model, initialpower
+from scipy.fft import rfftfreq
+
+import astropy
+from pathlib import Path
+import camb
+from camb import model
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib import rcParams
+from astropy import units as u
+from astropy import constants as c
+WD = 'D:/SNU/Cosm'
+
+h = 0.677
+pars = camb.CAMBparams()
+pars.set_cosmology(H0=67.7, ombh2=0.048* h**2, omch2=0.262* h**2)
+pars.InitPower.set_params(ns=0.96)
+pars.set_matter_power(redshifts=[0.0, 0.8], kmax=100.0)
+
+pars.NonLinear = model.NonLinear_none
+results = camb.get_results(pars)
+kh, z, pk = results.get_matter_power_spectrum(minkh=1e-4, maxkh=100, npoints = 1000)
+s8 = np.array(results.get_sigma8())
+
+#print(results.get_sigma8())
+#kh8 = 1 / 8 #* h
+for i, (redshift, line) in enumerate(zip(z,['-','--'])):
+    plt.loglog(kh, pk[i,:], color='k', ls = line)
+plt.xlabel('k/h Mpc');
+plt.legend(['linear'], loc='lower left');
+#plt.axvline(kh8, c='k', lw=0.8, ls='--')
+plt.title('Linear density power spectrum at z=%s and z= %s'%tuple(z));
+plt.savefig(WD+'/N1a2Z.png', dpi=300)
+plt.show()
+
+
+#Graph N2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+

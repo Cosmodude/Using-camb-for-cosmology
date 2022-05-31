@@ -3,8 +3,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 import numpy as np
 
-#Assume installed from github using "git clone --recursive https://github.com/cmbant/CAMB.git"
-#This file is then in the docs folders
+
 camb_path = os.path.realpath(os.path.join(os.getcwd(),'..'))
 sys.path.insert(0,camb_path)
 import camb
@@ -42,3 +41,7 @@ ax[1,1].plot(ls,unlensedCL[:,3], color='r')
 ax[1,1].set_title(r'$TE$');
 for ax in ax.reshape(-1): ax.set_xlim([2,2500]);
 plt.show()
+
+
+
+#Graph N2
