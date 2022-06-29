@@ -28,11 +28,12 @@ while M <(10**15)+1 :
     print(j)
     print('M= ',M)
     if(j==9 or j==118):
-        step=step*5
+        step=step*10
         print('step= ',step)
     if(j==18 or j==119):
-        step=step*20
+        step=step*10
         print('step= ',step)
+
 
 mas=np.asarray(Ma)
 dN=[]
@@ -42,7 +43,13 @@ for i in range(len(N)-1):
     dN.append(N[i+1]-N[i])
     dmase.append(np.log(mas)[i+1]-np.log(mas)[i])
     dN_dmase.append(dN[i]/dmase[i])
-    
+
+dN_dmase.pop(17)
+dN_dmase.pop(8) 
+#dmase.pop(19)
+
+
+
 # dN=np.gradient(N)
 # dmase=np.gradient(np.log(mas))
 
@@ -50,6 +57,9 @@ print('\n',dN)
 print('\n',dmase)
 logm=np.log10(mas)
 # logm=np.delete(logm,-1)
+logm=np.delete(logm,17)
+logm=np.delete(logm,8)
+print('\n',dN_dmase)
 
 WD = 'D:/SNU/Cosm'
 fig = plt.figure()
@@ -61,3 +71,8 @@ ax.set_xlabel('$\log M (h^{-1}M_{\odot})$')
 ax.set_ylabel('$dN/d\ln M$ [$(h^{-1}$Mpc$)^{-3}$]')
 plt.tight_layout()
 plt.savefig(WD+'/N3_Rockstar.png', dpi=300)
+
+
+#Chi-squared!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+pd.DataFrame(np.delete(logm,-1)).to_csv("ST_func_x.csv")
+pd.DataFrame(np.abs(dN_dmase)/(4*(10**8))).to_csv("ST_func_y.csv")

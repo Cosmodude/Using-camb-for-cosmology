@@ -40,6 +40,5 @@ plt.title('Linear density power spectrum at z=%s and z= %s'%tuple(z));
 plt.savefig(WD+'/N1a2Z.png', dpi=300)
 plt.show()
 
-
-#Graph N2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+print("finished")
 
